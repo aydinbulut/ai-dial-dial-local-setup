@@ -1,0 +1,12 @@
+{
+  "models": {
+    "gpt-4o": {
+      "upstreams": [
+        {
+          "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/gpt-4o/chat/completions",
+          "key": "${DIAL_API_KEY}"
+        }
+      ]
+    }
+  }
+}

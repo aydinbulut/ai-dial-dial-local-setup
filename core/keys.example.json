@@ -4,9 +4,15 @@
       "upstreams": [
         {
           "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/gpt-4o/chat/completions",
-          "key": "${DIAL_API_KEY}"
+          "key": "{DIAL_API_KEY_FROM_DIAL_API_KEY_MANAGEMENT}"
         }
       ]
+    }
+  },
+  "keys": {
+    "dial_api_key": {
+      "project": "{EPAM_PROJECT_NAME_FROM_DIAL_API_KEY_MANAGEMENT}",
+      "role": "{ROLE_NAME_FROM_DIAL_API_KEY_MANAGEMENT}"
     }
   }
 }

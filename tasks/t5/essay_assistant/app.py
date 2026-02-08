@@ -34,20 +34,38 @@ class EssayAssistantApplication(ChatCompletion):
         #       docker-compose.yml for chat service)
         #   - `api_version="2025-01-01-preview"`
 
-        client: AsyncDial = None
+        client: AsyncDial = AsyncDial(
+            base_url="http://localhost:8080",
+            api_key="dial_api_key",
+            api_version="2025-01-01-preview"
+        )
 
         #TODO:
         # 1. Create self-closable choice where we return response (you can find this code in echo app)
         #    (you need to call `response.create_single_choice()`
+        with response.create_single_choice() as choice:
         # 2. Assign to `chunks` the call to client chat completions (await client.chat.completions.create) with such parameters:
         #   - deployment_name="gpt-4o"
         #   - stream=True
         #   - messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": request.messages[-1].content }]
+            chunks = await client.chat.completions.create(
+                deployment_name="gpt-4",
+                stream=True,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": request.messages[-1].content}
+                ]
+            )
         # 3. Make async loop through `chunks` (async for chunk in chunks) and:
         #   -> if `chunk` has `choices` (chunk.choices):
         #   -> Get its `delta` (chunk.choices[0].delta) and assign to `delta`
         #   -> if delta is not None and has `content` (delta.content):
         #   -> Append delta content to choice (choice.append_content(delta.content))
+            async for chunk in chunks:
+                if chunk.choices:
+                    delta = chunk.choices[0].delta
+                    if delta and delta.content:
+                        choice.append_content(delta.content)
 
 
 app: DIALApp = DIALApp()
@@ -56,6 +74,7 @@ app: DIALApp = DIALApp()
 #       - use method `add_chat_completion`
 #       - deployment_name is `essay-assistant`
 #       - impl is `EssayAssistantApplication()`
+app.add_chat_completion("essay-assistant", EssayAssistantApplication())
 
 
 if __name__ == "__main__":

@@ -5,6 +5,11 @@
       "displayName": "My Echo App",
       "description": "Simple application that repeats user's message",
       "endpoint": "http://host.docker.internal:5022/openai/deployments/echo/chat/completions"
+    },
+    "essay-assistant": {
+      "displayName": "Essay Assistant",
+      "description": "Essay Assistant. Always answers with essay.",
+      "endpoint": "http://host.docker.internal:5025/openai/deployments/essay-assistant/chat/completions"
     }
   },
   "models": {
@@ -12,7 +17,13 @@
       "displayName": "GPT 4o",
       "endpoint": "http://adapter-dial:5000/openai/deployments/gpt-4o/chat/completions",
       "iconUrl": "http://localhost:3001/gpt4.svg",
-      "type": "chat"
+      "type": "chat",
+      "upstreams": [
+        {
+          "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/gpt-4o/chat/completions",
+          "key": "{KEY_TO_BE_PROVIDED_IN_CORE_KEYS_JSON}"
+        }
+      ]
     },
     "claude-3-7-sonnet@20250219": {
       "displayName": "sonnet 3.7",
@@ -21,7 +32,7 @@
       "upstreams": [
         {
           "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/claude-3-7-sonnet@20250219/chat/completions",
-          "key": "{REPLACE_WITH_YOUR_API_KEY}"
+          "key": "{KEY_TO_BE_PROVIDED_IN_CORE_KEYS_JSON}"
         }
       ]
     },
@@ -33,7 +44,7 @@
       "upstreams": [
         {
           "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/gemini-2.5-pro/chat/completions",
-          "key": "{REPLACE_WITH_YOUR_API_KEY}"
+          "key": "{KEY_TO_BE_PROVIDED_IN_CORE_KEYS_JSON}"
         }
       ]
     }

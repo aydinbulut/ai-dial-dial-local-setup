@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Debug essay assistant (module)",
+            "type": "python",
+            "request": "launch",
+            "module": "app",
+            "cwd": "${workspaceFolder}/tasks/t5/essay_assistant",
+            "python": "${workspaceFolder}/tasks/t5/essay_assistant/.venv/bin/python",
+            "args": [
+                "--example-arg",
+                "value"
+            ],
+            "env": {
+                "DIAL_API_KEY": "<your-api-key>",
+                "DIAL_BASE_URL": "<your-base-url>",
+                "DIAL_PROJECT": "<your-project-name>"
+            },
+            "justMyCode": true
+        }
+    ]
+}
